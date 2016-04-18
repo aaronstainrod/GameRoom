@@ -1,2 +1,11 @@
 # GameRoom
-A collection of games programmed in Scala, powered by the FANG (now deprecated) Engine
+## A collection of games programmed in Scala, powered by the FANG Engine (Now deprecated, powered by Java)
+## Cross Platform! (Windows, Mac OSX, Linux) Java Development Kit necessary for play
+
+## How to run
+- Select a game to play by selecting a branch (ex. Kindergarten)
+- Download/Clone the repository
+- Open your system's command line program (Command Prompt/PowerShell, Terminal, etc.)
+- Navigate to the downloaded/cloned repository
+- Type in the following: scala "game name" Game="game name" (ex. scala Kindergarten Game=Kindergarten)
+- Enjoy the game!
