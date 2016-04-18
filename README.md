@@ -1,2 +1,5 @@
-# GameRoom
-A collection of games programmed in Scala, powered by the FANG (now deprecated) Engine
+## Drought
+### Anthropology Inspired Object Collection Game
+
+#### How to run:
+ - scala Drought Game=Drought
