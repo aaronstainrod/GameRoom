@@ -9,35 +9,34 @@ import fang2.util._
 
 import java.awt.Color
 import java.net.URL
-import javax.sound.sampled._
 import scala.util.Random;
 
 
 //Programmer's Notes:
-class drought extends Game {
+class Drought extends Game {
 /*Main*************************************************************************************************/
 	override def setup {
 		//Background
 		generateBackground
 		generateStage
-		generateShip
+		generateCharacter
 		generateUI
 		generateLining
 		generateHUD
-		generateShip
+		generateCharacter
 
 		startGameImmediately
 	}
 
 	override def advance {
-		moveShip
+		moveCharacter
 		timer
 		collision
 		progression
 	}
 /*Data Values******************************************************************************************/
-	//Ship Values
-	var ship: ImageSprite = new ImageSprite("ship.gif")
+	//character Values
+	var character: ImageSprite = new ImageSprite("character.gif")
 	var shipLoc = (0.50,0.95)
 	var shipSpd = 0.05
 	//Screens
@@ -85,35 +84,35 @@ class drought extends Game {
 	//HUD Background
 	var lining: RectangleSprite = new RectangleSprite(1,0.10)
 	//Obstacles
-	var missile: ImageSprite = new ImageSprite("missile.png")
-	var missile2: ImageSprite = new ImageSprite("missile.png")
-	var missile3: ImageSprite = new ImageSprite("missile.png")
-	var missile4: ImageSprite = new ImageSprite("missile.png")
-	var missile5: ImageSprite = new ImageSprite("missile.png")
-	var missile6: ImageSprite = new ImageSprite("missile.png")
-	var missile7: ImageSprite = new ImageSprite("missile.png")
-	var missile8: ImageSprite = new ImageSprite("missile.png")
-	var missile9: ImageSprite = new ImageSprite("missile.png")
-	var missile10: ImageSprite = new ImageSprite("missile.png")
+	var drop: ImageSprite = new ImageSprite("drop.png")
+	var drop2: ImageSprite = new ImageSprite("drop.png")
+	var drop3: ImageSprite = new ImageSprite("drop.png")
+	var drop4: ImageSprite = new ImageSprite("drop.png")
+	var drop5: ImageSprite = new ImageSprite("drop.png")
+	var drop6: ImageSprite = new ImageSprite("drop.png")
+	var drop7: ImageSprite = new ImageSprite("drop.png")
+	var drop8: ImageSprite = new ImageSprite("drop.png")
+	var drop9: ImageSprite = new ImageSprite("drop.png")
+	var drop10: ImageSprite = new ImageSprite("drop.png")
 	//TimeKeeper
-	var timeKeeper: ImageSprite = new ImageSprite("missile.png")
+	var timeKeeper: ImageSprite = new ImageSprite("drop.png")
 /*Generation*******************************************************************************************/
-	def generateShip {
-		ship.setScale(0.05)
-		ship.setLocation(shipLoc._1, shipLoc._2)
-		addSprite(ship)
+	def generateCharacter {
+		character.setScale(0.05)
+		character.setLocation(shipLoc._1, shipLoc._2)
+		addSprite(character)
 	}
 
-	def generateMissileX(missile: ImageSprite, x: Double, y: Double) {
-		missile.setScale(0.05)
-		missile.setLocation(x, y)
-		addSprite(missile)
+	def generateDropX(drop: ImageSprite, x: Double, y: Double) {
+		drop.setScale(0.05)
+		drop.setLocation(x, y)
+		addSprite(drop)
 	}
 
-	def generateMissileY(missile: ImageSprite, x: Double, y: Double) {
-		missile.setScale(0.05)
-		missile.setLocation(x, y)
-		addSprite(missile)
+	def generateDropY(drop: ImageSprite, x: Double, y: Double) {
+		drop.setScale(0.05)
+		drop.setLocation(x, y)
+		addSprite(drop)
 	}
 
 
@@ -182,43 +181,43 @@ class drought extends Game {
 		addSprite(lining)
 	}
 /*Movement*********************************************************************************************/
-	def moveShip {
+	def moveCharacter {
 		if (leftPressed) {
-			ship.translateX(-shipSpd)
-			if (ship.getX < 0.05) {
-				ship.setX(0.05)
+			character.translateX(-shipSpd)
+			if (character.getX < 0.05) {
+				character.setX(0.05)
 			}
 		}
 		if (rightPressed) {
-			ship.translateX(shipSpd)
-			if (ship.getX > 0.95) {
-				ship.setX(0.95)
+			character.translateX(shipSpd)
+			if (character.getX > 0.95) {
+				character.setX(0.95)
 			}
 		}
 	}
 
-	def moveMissileY (missile: ImageSprite, speed: Double) {
-		missile.translateY(speed)
-		if (missile.getY > 1.10) {
-			missile.setY(-0.1)
+	def moveDropY (drop: ImageSprite, speed: Double) {
+		drop.translateY(speed)
+		if (drop.getY > 1.10) {
+			drop.setY(-0.1)
 		}
 	}
 
-	def moveMissileX (missile: ImageSprite, speed: Double) {
-		missile.translateX(speed)
-		if (missile.getX > 1.10) {
-			missile.setX(-0.1)
+	def moveDropX (drop: ImageSprite, speed: Double) {
+		drop.translateX(speed)
+		if (drop.getX > 1.10) {
+			drop.setX(-0.1)
 		}
 	}
 
-	def moveMissileXY (missile: ImageSprite, x: Double, y: Double) {
-		missile.translateX(x)
-		missile.translateY(y)
-		if (missile.getX > 1.10) {
-			missile.setX(-0.1)
+	def moveDropXY (drop: ImageSprite, x: Double, y: Double) {
+		drop.translateX(x)
+		drop.translateY(y)
+		if (drop.getX > 1.10) {
+			drop.setX(-0.1)
 		}
-		if (missile.getY > 1.10) {
-			missile.setY(-0.1)
+		if (drop.getY > 1.10) {
+			drop.setY(-0.1)
 		}
 	}
 
@@ -230,7 +229,7 @@ class drought extends Game {
 	}
 /*Timer************************************************************************************************/
 	def timer {
-		moveMissileX(timeKeeper,0.04)
+		moveDropX(timeKeeper,0.04)
 		if (timeKeeper.getX > 1.05) {
 			time += 1
 			ClockString.setText(String.valueOf(time))
@@ -246,23 +245,23 @@ class drought extends Game {
 			removeSprite(TutorialString)
 			//Vertical Array
 			if (time > 0) {
-				moveMissileY(missile,0.05)
-				moveMissileY(missile10,0.05)
+				moveDropY(drop,0.05)
+				moveDropY(drop10,0.05)
 			}
-				moveMissileY(missile2,0.05)
-				moveMissileY(missile9,0.05)
+				moveDropY(drop2,0.05)
+				moveDropY(drop9,0.05)
 			if (time > 2) {
 			}
 			if (time > 4) {
-				moveMissileY(missile3,0.05)
-				moveMissileY(missile8,0.05)
+				moveDropY(drop3,0.05)
+				moveDropY(drop8,0.05)
 			}
 			if (time > 6) {
-				moveMissileY(missile4,0.05)
-				moveMissileY(missile7,0.05)
+				moveDropY(drop4,0.05)
+				moveDropY(drop7,0.05)
 			}
 			if (time > 8) {
-				moveMissileY(missile5,0.05)
+				moveDropY(drop5,0.05)
 			}
 			if (time > 30 && score > 30) {
 				training = false
@@ -280,22 +279,22 @@ class drought extends Game {
 	def collision {
 		if (dead){
 			timeKeeper.setLocation(2,2)
-			missile.setLocation(2,2)
-			missile2.setLocation(2,2)
-			missile3.setLocation(2,2)
-			missile4.setLocation(2,2)
-			missile5.setLocation(2,2)
-			missile6.setLocation(2,2)
-			missile7.setLocation(2,2)
-			missile8.setLocation(2,2)
-			missile9.setLocation(2,2)
-			missile10.setLocation(2,2)
+			drop.setLocation(2,2)
+			drop2.setLocation(2,2)
+			drop3.setLocation(2,2)
+			drop4.setLocation(2,2)
+			drop5.setLocation(2,2)
+			drop6.setLocation(2,2)
+			drop7.setLocation(2,2)
+			drop8.setLocation(2,2)
+			drop9.setLocation(2,2)
+			drop10.setLocation(2,2)
 			ClockString.setText("Score: " + String.valueOf(time))
 			ContinueString.setLocation(0.50,0.50)
 			moveOptionsY(YesString,0.01)
 			moveOptionsY(NoString,0.01)
 		}
-		if (dead && ship.intersects(YesString)) {
+		if (dead && character.intersects(YesString)) {
 			dead = false
 			training = true
 			time = 0
@@ -306,28 +305,28 @@ class drought extends Game {
 			setup
 			advance
 		}
-		if (dead && ship.intersects(NoString)) {
+		if (dead && character.intersects(NoString)) {
 			sys.exit(0)
 		}
 		if (complete){
 			timeKeeper.setLocation(2,2)
-			missile.setLocation(2,2)
-			missile2.setLocation(2,2)
-			missile3.setLocation(2,2)
-			missile4.setLocation(2,2)
-			missile5.setLocation(2,2)
-			missile6.setLocation(2,2)
-			missile7.setLocation(2,2)
-			missile8.setLocation(2,2)
-			missile9.setLocation(2,2)
-			missile10.setLocation(2,2)
+			drop.setLocation(2,2)
+			drop2.setLocation(2,2)
+			drop3.setLocation(2,2)
+			drop4.setLocation(2,2)
+			drop5.setLocation(2,2)
+			drop6.setLocation(2,2)
+			drop7.setLocation(2,2)
+			drop8.setLocation(2,2)
+			drop9.setLocation(2,2)
+			drop10.setLocation(2,2)
 
 			ClockString.setText("Excellent")
 			ContinueString.setLocation(0.50,0.50)
 			moveOptionsY(YesString,0.01)
 			moveOptionsY(NoString,0.01)
 		}
-		if (complete && ship.intersects(YesString)) {
+		if (complete && character.intersects(YesString)) {
 			complete = false
 			training = true
 			time = 0
@@ -337,73 +336,73 @@ class drought extends Game {
 			setup
 			advance
 		}
-		if (complete && ship.intersects(NoString)) {
+		if (complete && character.intersects(NoString)) {
 			sys.exit(0)
 		}
-		if (ship.intersects(missile)) {
+		if (character.intersects(drop)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile.setX(newPlace)
-				System.out.println("Missile 1: " + missile.getX + ", " + missile.getY)
+				drop.setX(newPlace)
+				System.out.println("drop 1: " + drop.getX + ", " + drop.getY)
 		}
-		if (ship.intersects(missile2)) {
+		if (character.intersects(drop2)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile2.setX(newPlace2)
-				System.out.println("Missile 2: " + missile2.getX + ", " + missile2.getY)
+				drop2.setX(newPlace2)
+				System.out.println("drop 2: " + drop2.getX + ", " + drop2.getY)
 		}
-		if (ship.intersects(missile3)) {
+		if (character.intersects(drop3)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile3.setX(newPlace3)
-				System.out.println("Missile 3: " + missile3.getX + ", " + missile3.getY)
+				drop3.setX(newPlace3)
+				System.out.println("drop 3: " + drop3.getX + ", " + drop3.getY)
 		}
-		if (ship.intersects(missile4)) {
+		if (character.intersects(drop4)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile4.setX(newPlace4)
-				System.out.println("Missile 4: " + missile4.getX + ", " + missile4.getY)
+				drop4.setX(newPlace4)
+				System.out.println("drop 4: " + drop4.getX + ", " + drop4.getY)
 		}
-		if (ship.intersects(missile5)) {
+		if (character.intersects(drop5)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile5.setX(newPlace5)
-				System.out.println("Missile 5: " + missile5.getX + ", " + missile5.getY)
+				drop5.setX(newPlace5)
+				System.out.println("drop 5: " + drop5.getX + ", " + drop5.getY)
 		}
-		if (ship.intersects(missile6)) {
+		if (character.intersects(drop6)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile6.setX(newPlace6)
-				System.out.println("Missile 6: " + missile6.getX + ", " + missile6.getY)
+				drop6.setX(newPlace6)
+				System.out.println("drop 6: " + drop6.getX + ", " + drop6.getY)
 		}
-		if (ship.intersects(missile7)) {
+		if (character.intersects(drop7)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile7.setX(newPlace7)
-				System.out.println("Missile 7: " + missile7.getX + ", " + missile7.getY)
+				drop7.setX(newPlace7)
+				System.out.println("drop 7: " + drop7.getX + ", " + drop7.getY)
 		}
-		if (ship.intersects(missile8)) {
+		if (character.intersects(drop8)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile8.setX(newPlace8)
-				System.out.println("Missile 8: " + missile8.getX + ", " + missile8.getY)
+				drop8.setX(newPlace8)
+				System.out.println("drop 8: " + drop8.getX + ", " + drop8.getY)
 		}
-		if (ship.intersects(missile9)) {
+		if (character.intersects(drop9)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile9.setX(newPlace9)
-				System.out.println("Missile 9: " + missile9.getX + ", " + missile9.getY)
+				drop9.setX(newPlace9)
+				System.out.println("drop 9: " + drop9.getX + ", " + drop9.getY)
 		}
-		if (ship.intersects(missile10)) {
+		if (character.intersects(drop10)) {
 				score += 1
 				ScoreString.setText(String.valueOf("Score: " + score))
-				missile10.setX(newPlace10)
-				System.out.println("Missile 10: " + missile5.getX + ", " + missile5.getY)
+				drop10.setX(newPlace10)
+				System.out.println("drop 10: " + drop5.getX + ", " + drop5.getY)
 		}
 	}
-/*Ship Reset*******************************************************************************************/
+/*character Reset*******************************************************************************************/
 	def shipReset {
-		ship.setLocation(shipLoc._1,0.95)
+		character.setLocation(shipLoc._1,0.95)
 	}
 /*Introduction*****************************************************************************************/
 	def introduction {
@@ -437,22 +436,18 @@ class drought extends Game {
 	}
 /*Stage************************************************************************************************/
 	def generateStage {
-		generateMissileX(timeKeeper,0.0,-2.0)
+		generateDropX(timeKeeper,0.0,-2.0)
 
-		generateMissileY(missile,0.10,-0.75)
-		generateMissileY(missile2,0.20,-0.45)
-		generateMissileY(missile3,0.30,-0.95)
-		generateMissileY(missile4,0.40,-0.25)
-		generateMissileY(missile5,0.50,-0.05)
-		generateMissileY(missile6,0.60,-0.35)
-		generateMissileY(missile7,0.70,-0.85)
-		generateMissileY(missile8,0.80,-0.05)
-		generateMissileY(missile9,0.90,-0.65)
-		generateMissileY(missile10,0.95,-0.15)
+		generateDropY(drop,0.10,-0.75)
+		generateDropY(drop2,0.20,-0.45)
+		generateDropY(drop3,0.30,-0.95)
+		generateDropY(drop4,0.40,-0.25)
+		generateDropY(drop5,0.50,-0.05)
+		generateDropY(drop6,0.60,-0.35)
+		generateDropY(drop7,0.70,-0.85)
+		generateDropY(drop8,0.80,-0.05)
+		generateDropY(drop9,0.90,-0.65)
+		generateDropY(drop10,0.95,-0.15)
 
 	}
-/*Score Keeper******************************************************************************************/
-/*Data Values******************************************************************************************/
-/*Data Values******************************************************************************************/
-/*Data Values******************************************************************************************/
-/*Data Values******************************************************************************************/
+}
